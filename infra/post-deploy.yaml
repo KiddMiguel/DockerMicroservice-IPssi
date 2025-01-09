@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client-deployment
+  name: posts-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: client 
+      app: posts
   template:
     metadata:
       labels:
-        app: client
+        app: posts
     spec:
       containers:
-        - name: client
-          image: localhost:5000/client-image:latest
+        - name: posts
+          image: localhost:5000/posts-image:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 4000
           imagePullPolicy: Always
 
 ---
@@ -24,12 +24,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: client-srv
+  name: posts-clusterip-srv
 spec:
   selector:
-    app: client
+    app: posts
   ports:
-    - port: 3000
+    - port: 4000
       # protocol: TCP
-      targetPort: 3000
+      targetPort: 4000
   type: LoadBalancer
