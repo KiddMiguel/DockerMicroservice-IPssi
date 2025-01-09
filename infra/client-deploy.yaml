@@ -1,0 +1,37 @@
+appVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: client
+  template:
+    metadata:
+      labels:
+        component: client
+    spec:
+      containers:
+        - name: client
+          image: localhost:5000/client-image:latest
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+
+---
+
+appVersion: v1
+kind: Service
+metadata:
+  name: client-service
+spec:
+  selector:
+    app: client
+  ports:
+    - name: client
+    - port: 3000
+      targetPort: 3000
+  type: ClusterIP
+
+
