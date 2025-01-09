@@ -1,5 +1,6 @@
 
 FROM node:alpine
+ENV WDS_SOCKET_PORT=0
 
 WORKDIR /app
 
@@ -8,7 +9,5 @@ COPY package.json .
 RUN npm install
 
 COPY . .
-
-EXPOSE 4002
 
 CMD ["npm", "start"]
